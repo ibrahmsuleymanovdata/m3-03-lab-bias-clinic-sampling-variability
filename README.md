@@ -123,58 +123,6 @@ Now, repeat each sampling strategy **1,000 times** and collect the sample means:
 
 **Guiding question:** Which sampling strategies produce biased estimates? How can you tell from the sampling distributions?
 
-### Task 4: Bootstrap Preview
-
-Bootstrapping lets you estimate the variability of a statistic when you only have one sample and no knowledge of the underlying distribution.
-
-1. Draw a single **simple random sample** of n = 100 from the population.
-2. From this sample, generate **5,000 bootstrap resamples** (sample with replacement, same size as the original).
-3. For each bootstrap resample, compute the **mean income**.
-4. Plot the bootstrap distribution of mean income as a histogram.
-5. Compute the **95% bootstrap confidence interval** using the percentile method (2.5th and 97.5th percentiles).
-6. Check whether the true population mean income falls inside your bootstrap CI.
-
-Repeat the entire process (steps 1–6) for **three different original sample sizes**: n = 30, n = 100, n = 500.
-- Create a figure with three side-by-side histograms showing the bootstrap distributions.
-- Mark the 95% CI boundaries and the true population mean on each.
-
-**Guiding question:** How does the original sample size affect the width of the bootstrap confidence interval? Does the CI always contain the true mean?
-
-### Task 5: Data Leakage Demonstration
-
-Data leakage occurs when information from outside the training data "leaks" into the model, producing unrealistically good performance that won't generalize.
-
-1. **Create a classification dataset:**
-   - Use the population from Task 2. Create a binary target: `high_satisfaction = 1 if satisfaction >= 7 else 0`.
-   - Features: `age`, `income`.
-
-2. **The wrong way (leakage):**
-   - Apply `StandardScaler` to the **entire dataset** (fit on all rows).
-   - Split into train (80%) and test (20%).
-   - Train a `LogisticRegression` on the training set.
-   - Evaluate accuracy on the test set.
-
-3. **The right way (no leakage):**
-   - Split into train (80%) and test (20%) **first**.
-   - Fit `StandardScaler` on the training set only; transform both train and test.
-   - Train `LogisticRegression` on the training set.
-   - Evaluate accuracy on the test set.
-
-4. **Compare and discuss:**
-   - Report both accuracy scores side by side.
-   - In a markdown cell, explain why the "wrong way" leaks information and why the difference in accuracy might be small here but catastrophic in other scenarios (e.g., time series, feature engineering from target).
-
-5. **Bonus — A more dramatic leakage example:**
-   - Add a "future" feature to the dataset: `future_satisfaction_change = satisfaction + noise`. This feature is computed using the target variable.
-   - Retrain both pipelines (leaky and correct) with this new feature included.
-   - Compare accuracies — the leaky pipeline should show a dramatic performance gap.
-
-**Guiding question:** Why is data leakage often harder to detect than other bugs? What practices can prevent it?
-
-### Task 6: Reflection — Data Quality Principles
-
-In a final markdown cell, write **5 principles** for responsible data collection and analysis that you would follow in a professional data science role. Each principle should be a short paragraph (2–3 sentences) that connects to something you observed in this lab. For example, one principle might address always checking for representativeness before trusting sample statistics.
-
 ## Submission
 
 ### What to submit
@@ -186,9 +134,6 @@ In a final markdown cell, write **5 principles** for responsible data collection
 - [ ] All four bias case studies are analyzed with type, explanation, and fix.
 - [ ] Population is generated with 100,000 rows and true parameters are stored.
 - [ ] Three sampling strategies are compared across 1,000 repeated samples.
-- [ ] Bootstrap confidence intervals are computed for three sample sizes.
-- [ ] Data leakage demonstration shows both the wrong and right approaches.
-- [ ] Reflection contains 5 concrete, lab-connected principles.
 - [ ] The notebook runs top-to-bottom without errors (`Kernel → Restart & Run All`).
 
 ### How to submit (Git workflow)
